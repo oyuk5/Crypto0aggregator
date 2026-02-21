@@ -1,10 +1,13 @@
 from app.exchanges.BinanceClient import BinanceClient
 from app.exchanges.BybitClient import BybitClient
+from app.exchanges.KrakenClient import KrakenClient
+
 
 def main():
     clients = [
         BinanceClient(),
         BybitClient(),
+        KrakenClient()
     ]
     results = {}
     for client in clients:

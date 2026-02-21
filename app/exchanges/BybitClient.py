@@ -9,6 +9,13 @@ class BybitClient(BaseClient):
             "symbol" : "BTCUSDT"
         }
         data = self._request("/market/tickers",params)
-        if data and "price" in data:
-            return float(data["price"])
+        try:
+            if data and data.get("retCode") == 0:
+                result = data.get("result", {})
+                items = result.get("list", [])
+                if items:
+                    price = items[0].get("lastPrice")
+                    return float(price)
+        except Exception as e:
+            print(f"Error while parsing Bybit: {e}")
         return 0.0
